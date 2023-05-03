@@ -131,13 +131,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="A12.mdf">
+    <Content Include="A2.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="A12_log.ldf">
+    <Content Include="A2_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>A12.mdf</DependentUpon>
+      <DependentUpon>A2.mdf</DependentUpon>
     </Content>
+    <Content Include="prosirenje.sql" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

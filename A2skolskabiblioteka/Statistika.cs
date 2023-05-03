@@ -14,7 +14,7 @@ namespace A2skolskabiblioteka
 {
     public partial class Statistika : Form
     {
-        SqlConnection konekcija = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\A12.mdf;Integrated Security=True");
+        SqlConnection konekcija = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\A2.mdf;Integrated Security=True");
 
         public Statistika()
         {
