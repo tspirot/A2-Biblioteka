@@ -22,12 +22,12 @@ namespace A2skolskabiblioteka
         private void PrikaziULV()
         {
             listView1.Items.Clear();
+            string sqlUpit = "SELECT * FROM Autor";
+            SqlCommand komanda = new SqlCommand(sqlUpit, konekcija);
+            SqlDataAdapter da = new SqlDataAdapter(komanda);
             try
             {
-                string sqlUpit = "SELECT * FROM Autor";
-                SqlCommand komanda = new SqlCommand(sqlUpit, konekcija);
                 DataTable dt = new DataTable();
-                SqlDataAdapter da = new SqlDataAdapter(komanda);
                 da.Fill(dt);
                 foreach (DataRow row in dt.Rows)
                 {
@@ -38,12 +38,15 @@ namespace A2skolskabiblioteka
                     listItem.SubItems.Add(dat.ToString("dd/MM/yyyy"));
                     listView1.Items.Add(listItem);
                 }
-                da.Dispose();
-                komanda.Dispose();
             }
             catch(Exception)
             {
                 MessageBox.Show("Doslo je do greske !");
+            }
+            finally
+            {
+                da.Dispose();
+                komanda.Dispose();
             }
         }
 

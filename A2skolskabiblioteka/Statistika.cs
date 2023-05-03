@@ -40,32 +40,38 @@ namespace A2skolskabiblioteka
                 comboBoxAutor.ValueMember = "AutorID";
                 comboBoxAutor.SelectedItem = null;
                 comboBoxAutor.DropDownStyle = ComboBoxStyle.DropDownList;
-                da.Dispose();
-                komanda.Dispose();
 
             }
             catch (Exception)
             {
                 MessageBox.Show("Doslo je do greske !");
             }
+            finally
+            {
+                da.Dispose();
+                komanda.Dispose();
+            }  
         }
 
         private void btnPrikazi_Click(object sender, EventArgs e)
         {
-            string sql = "SELECT YEAR(DatumUzimanja) as Godina, COUNT(DatumUzimanja) as Broj FROM Na_Citanju, " +
-                "Knjiga, Napisali WHERE Na_Citanju.KnjigaID = Knjiga.KnjigaID AND Knjiga.KnjigaID = Napisali.KnjigaID " +
-                "AND Napisali.AutorID = @param1 AND Year(DatumUzimanja) BETWEEN @param3 AND @param2  GROUP BY YEAR(DatumUzimanja)";
+            string sql = "SELECT YEAR(DatumUzimanja) as Godina, " +
+                "COUNT(DatumUzimanja) as Broj " +
+                "FROM Na_Citanju, Knjiga, Napisali " +
+                "WHERE Na_Citanju.KnjigaID = Knjiga.KnjigaID " +
+                "AND Knjiga.KnjigaID = Napisali.KnjigaID " +
+                "AND Napisali.AutorID = @param1 " +
+                "AND Year(DatumUzimanja) BETWEEN @param3 AND @param2  " +
+                "GROUP BY YEAR(DatumUzimanja)";
             SqlCommand komanda = new SqlCommand(sql, konekcija);
             komanda.Parameters.AddWithValue("@param1", comboBoxAutor.SelectedValue);
             komanda.Parameters.AddWithValue("@param2", DateTime.Now.Year);
             komanda.Parameters.AddWithValue("@param3", DateTime.Now.AddYears((int)-numericUpDown1.Value).Year);
+            SqlDataAdapter da = new SqlDataAdapter(komanda);
             try
             {
-                SqlDataAdapter da = new SqlDataAdapter(komanda);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-                da.Dispose();
-                komanda.Dispose();
                 chart1.DataSource = dt;
                 chart1.Series[0].XValueMember = "Godina";
                 chart1.Series[0].YValueMembers = "Broj";
@@ -78,6 +84,11 @@ namespace A2skolskabiblioteka
             catch(Exception)
             {
                 MessageBox.Show("Doslo je do greske !");
+            }
+            finally
+            {
+                da.Dispose();
+                komanda.Dispose();
             }
         }
 
