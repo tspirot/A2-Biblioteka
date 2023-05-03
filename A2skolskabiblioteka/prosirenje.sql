@@ -1,11 +1,11 @@
 CREATE TABLE Primerak(
-	OgranakID INT NOT NULL PRIMARY KEY,
-	NazivSkole VARCHAR(50) NOT NULL
+	PrimerakID INT NOT NULL PRIMARY KEY,
+	KnjigaID INT NOT NULL,
+	Povez VARCHAR(50) NOT NULL
+	CONSTRAINT FK_Primerak_Knjiga FOREIGN KEY (KnjigaID) REFERENCES Knjiga(KnjigaID),
 );
 
-ALTER TABLE Knjiga
+ALTER TABLE Citalac
 ADD
-OgranakID INT,
-CONSTRAINT FK_Knjiga_Ogranak FOREIGN KEY (OgranakID) REFERENCES Ogranak(OgranakID),
-DatumNabavke DATE,
-CONSTRAINT CHK_DatumNabavke CHECK(DatumNabavke > DATEFROMPARTS(2000,1,1))
+DatumClanarine DATE,
+CONSTRAINT CHK_DatumClanarine CHECK(DatumClanarine <= GETDATE())
